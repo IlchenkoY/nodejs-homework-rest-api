@@ -2,6 +2,9 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 
+const dotenv = require("dotenv");
+dotenv.config();
+
 const contactsRouter = require("./routes/api/contacts");
 
 const app = express();
@@ -19,7 +22,7 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const { status = 500, message = "Server error" } = err;
+  const { status = 500 } = err;
   res.status(status).json({ message: err.message });
 });
 
