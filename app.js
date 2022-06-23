@@ -5,8 +5,9 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 dotenv.config();
 
+const usersRouter = require("./routes/api/users");
 const contactsRouter = require("./routes/api/contacts");
-const errorHandler = require("./controllers/contacts/errorHandler");
+const errorHandler = require("./errors/errorHandler");
 
 const app = express();
 
@@ -16,6 +17,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/users", usersRouter);
 app.use("/api/contacts", contactsRouter);
 
 app.use((req, res) => {
@@ -23,9 +25,5 @@ app.use((req, res) => {
 });
 
 app.use(errorHandler);
-// app.use((err, req, res, next) => {
-//   const { status = 500 } = err;
-//   res.status(status).json({ message: err.message });
-// });
 
 module.exports = app;
