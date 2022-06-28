@@ -9,9 +9,9 @@ class ErrorResponse extends Error {
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
-  console.log(err.name);
-  console.log(err.code);
-  console.log(error.message);
+  // console.log(err.name);
+  // console.log(err.code);
+  // console.log(error.message);
 
   if (err.name === "CastError") {
     const message = `Resource not found`;
