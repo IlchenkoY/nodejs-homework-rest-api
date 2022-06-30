@@ -2,8 +2,18 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const dotenv = require("dotenv");
+// const { sendEmail } = require("./helpers");
 
 dotenv.config();
+
+// const email = {
+//   to: "laber70628@weepm.com",
+//   from: "",
+//   subject: "Тестовая2 заявка с сайта",
+//   html: "<p>С сайта пришла тестовая2 заявка</p>",
+// };
+
+// sendEmail(email);
 
 const usersRouter = require("./routes/api/users");
 const contactsRouter = require("./routes/api/contacts");

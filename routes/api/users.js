@@ -5,6 +5,7 @@ const {
   joiSignUpSchema,
   joiLoginSchema,
   joiStatusSchema,
+  JoiReVerificationSchema,
 } = require("../../models/user");
 const { users: ctrl } = require("../../controllers");
 
@@ -25,6 +26,13 @@ router.patch(
   ctrlWrapper(auth),
   upload.single("avatar"),
   ctrlWrapper(ctrl.updateAvatar)
+);
+
+router.get("/verify/:verificationToken", ctrlWrapper(ctrl.verifyEmail));
+router.post(
+  "/verify",
+  validation(JoiReVerificationSchema),
+  ctrlWrapper(ctrl.reVerification)
 );
 
 module.exports = router;

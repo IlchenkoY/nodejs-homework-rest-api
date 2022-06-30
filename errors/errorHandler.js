@@ -9,9 +9,9 @@ class ErrorResponse extends Error {
 const errorHandler = (err, req, res, next) => {
   let error = { ...err };
   error.message = err.message;
-  // console.log(err.name);
-  // console.log(err.code);
-  // console.log(error.message);
+  console.log(err.name);
+  console.log(err.code);
+  console.log(error.message);
 
   if (err.name === "CastError") {
     const message = `Resource not found`;
@@ -29,7 +29,7 @@ const errorHandler = (err, req, res, next) => {
   }
 
   if (err.name === "TypeError") {
-    const message = "Email or password is wrong";
+    const message = "Email is wrong or not verify, or password is wrong";
     error = new ErrorResponse(message, 401);
   }
 
@@ -40,6 +40,14 @@ const errorHandler = (err, req, res, next) => {
   ) {
     const message = "Not authorized";
     error = new ErrorResponse(message, 401);
+  }
+
+  if (err.message === "User not found") {
+    error = new ErrorResponse(err.message, 404);
+  }
+
+  if (err.message === "Verification has already been passed") {
+    error = new ErrorResponse(err.message, 400);
   }
 
   res.status(error.statusCode || 500).json({
